@@ -24,29 +24,6 @@
   padding: 20px;
 }
 
-.upload-section {
-  background-color: white;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  text-align: center;
-}
-
-.upload-label {
-  font-size: 16px;
-  margin-bottom: 10px;
-  display: block;
-}
-
-.file-input {
-  padding: 10px;
-  margin-bottom: 10px;
-}
-
-.file-name {
-  font-size: 14px;
-  color: #4caf50;
-}
 
 /* Footer Styling */
 .footer {

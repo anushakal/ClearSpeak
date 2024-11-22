@@ -3,13 +3,34 @@ import './App.css';
 
 function App() {
 
-  const [fileName, setFileName] = useState('');
   const [isRecording, setIsRecording] = useState(false);
   const [audioUrl, setAudioUrl] = useState('');
   const mediaRecorderRef = useRef(null);
   const audioChunksRef = useRef([]);
-  const [file, setFile] = useState(null);
-
+  
+  const saveRecording = async (audioBlob) => {
+    const formData = new FormData();
+    formData.append('audio', audioBlob, 'recording.wav');
+  
+    try {
+      const response = await fetch('http://localhost:5000/upload', {
+        method: 'POST',
+        body: formData,
+      });
+      
+      const result = await response.json(); // Parse the JSON response
+  
+      if (response.ok) {
+        alert(result.message || 'File uploaded successfully!'); // Use the server's message
+      } else {
+        alert(result.error || 'Failed to upload file.'); // Show the server's error
+      }
+    } catch (error) {
+      console.error('Error uploading file:', error);
+      alert('An error occurred while uploading.');
+    }
+  };
+  
 
   // Start or stop recording
   const toggleRecording = async () => {
@@ -28,6 +49,7 @@ function App() {
         const audioBlob = new Blob(audioChunksRef.current, { type: 'audio/wav' });
         const audioUrl = URL.createObjectURL(audioBlob);
         setAudioUrl(audioUrl);
+        saveRecording(audioBlob); // Save the file to the backend
         setIsRecording(false);
       };
 
@@ -36,22 +58,6 @@ function App() {
     }
   };
 
-
-  // Handle File Upload
-  const handleFileUpload = (event) => {
-    const uploadedFile = event.target.files[0];
-    // Check if the file is either a .wav or .mp3 file
-    const fileExtension = uploadedFile.name.split('.').pop().toLowerCase();
-
-    if (fileExtension === 'wav' || fileExtension === 'mp3') {
-      setFileName(uploadedFile.name);
-      setFile(uploadedFile);
-    } else {
-      alert('Please upload a .wav or .mp3 file.');
-      setFileName('');
-      setFile(null);
-    }
-  };
 
 
   return (
@@ -63,18 +69,6 @@ function App() {
       </header>
 
       <main className="main-content">
-      <section className="upload-section">
-        <label htmlFor="file-upload" className="upload-label">
-          Upload a file
-        </label>
-        <input
-          type="file"
-          id="file-upload"
-          className="file-input"
-          onChange={handleFileUpload}
-        />
-        {fileName && <p className="file-name">Uploaded File: {fileName}</p>}
-      </section>
 
       {/* Voice Recording Section */}
       <section className="recording-section">
