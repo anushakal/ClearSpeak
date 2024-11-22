@@ -7,6 +7,7 @@ function App() {
   const [audioUrl, setAudioUrl] = useState('');
   const mediaRecorderRef = useRef(null);
   const audioChunksRef = useRef([]);
+  const [transcription, setTranscription] = useState('');
   
   const saveRecording = async (audioBlob) => {
     const formData = new FormData();
@@ -58,7 +59,25 @@ function App() {
     }
   };
 
+  const fetchTranscription = async () => {
+    try {
+      const response = await fetch('http://localhost:5000/transcribe', {
+        method: 'POST',
+      });
 
+      const result = await response.json(); // Parse the JSON response
+
+      if (response.ok) {
+        console.log('Transcription Result:', result); // Log the transcription
+        setTranscription(result.transcript); // Set the transcription state
+      } else {
+        alert(result.error || 'Failed to fetch transcription.');
+      }
+    } catch (error) {
+      console.error('Error fetching transcription:', error);
+      alert('An error occurred while fetching the transcription.');
+    }
+  };
 
   return (
     <div className="app-container">
@@ -81,6 +100,21 @@ function App() {
             </div>
           )}
       </section>
+
+      {/* Show Transcription Button */}
+      {audioUrl && (
+          <section className="transcription-section">
+            <button onClick={fetchTranscription}>Show Transcription</button>
+          </section>
+        )}
+      
+      {/* Transcription Section */}
+      {transcription && (
+          <section className="transcription-result">
+            <h3>Transcription:</h3>
+            <p>{transcription}</p>
+          </section>
+        )}
 
       </main>
 
