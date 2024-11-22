@@ -1,5 +1,6 @@
 import React, {useState, useRef} from 'react';
 import './App.css';
+import MicIcon from '@mui/icons-material/Mic';
 
 function App() {
 
@@ -91,6 +92,7 @@ function App() {
 
       {/* Voice Recording Section */}
       <section className="recording-section">
+          <MicIcon sx={{ fontSize: 50, color: isRecording ? 'red' : 'black' }} />
           <button className="record-button" onClick={toggleRecording}>
             {isRecording ? 'Stop Recording' : 'Start Recording'}
           </button>
