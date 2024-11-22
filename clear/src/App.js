@@ -39,10 +39,17 @@ function App() {
 
   // Handle File Upload
   const handleFileUpload = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      setFileName(file.name);
-      console.log('File uploaded:', file);
+    const uploadedFile = event.target.files[0];
+    // Check if the file is either a .wav or .mp3 file
+    const fileExtension = uploadedFile.name.split('.').pop().toLowerCase();
+
+    if (fileExtension === 'wav' || fileExtension === 'mp3') {
+      setFileName(uploadedFile.name);
+      setFile(uploadedFile);
+    } else {
+      alert('Please upload a .wav or .mp3 file.');
+      setFileName('');
+      setFile(null);
     }
   };
 
