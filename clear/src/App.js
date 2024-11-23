@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import './App.css';
 import MicIcon from '@mui/icons-material/Mic';
 import { ToggleButton } from '@mui/material';
+import CircularProgress from '@mui/material/CircularProgress';
 
 function App() {
   const [isRecording, setIsRecording] = useState(false);
@@ -10,6 +11,8 @@ function App() {
   const audioChunksRef = useRef([]);
   const [transcription, setTranscription] = useState('');
   const [isHighContrast, setIsHighContrast] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [modifiedTranscription, setModifiedTranscription] = useState('');
 
   const saveRecording = async (audioBlob) => {
     const formData = new FormData();
@@ -24,13 +27,13 @@ function App() {
       const result = await response.json();
 
       if (response.ok) {
-        alert(result.message || 'File uploaded successfully!');
+        alert(result.message || 'Recording captured successfully!');
       } else {
-        alert(result.error || 'Failed to upload file.');
+        alert(result.error || 'Failed to record audio.');
       }
     } catch (error) {
-      console.error('Error uploading file:', error);
-      alert('An error occurred while uploading.');
+      console.error('Error while uploading recording:', error);
+      alert('An error occurred while recording.');
     }
   };
 
@@ -60,6 +63,7 @@ function App() {
   };
 
   const fetchTranscription = async () => {
+    setLoading(true); // Show loading animation
     try {
       const response = await fetch('http://localhost:5000/transcribe', {
         method: 'POST',
@@ -68,7 +72,7 @@ function App() {
       const result = await response.json();
 
       if (response.ok) {
-        console.log('Transcription Result:', result);
+        console.log('Original Transcription Result:', result);
         setTranscription(result.transcript);
       } else {
         alert(result.error || 'Failed to fetch transcription.');
@@ -76,12 +80,40 @@ function App() {
     } catch (error) {
       console.error('Error fetching transcription:', error);
       alert('An error occurred while fetching the transcription.');
+    } finally {
+      setLoading(false); // Hide loading animation
     }
   };
 
   const toggleContrast = () => {
     setIsHighContrast(!isHighContrast);
     document.body.classList.toggle('high-contrast');
+  };
+
+  const fetchModifiedTranscription = async () => {
+    if (!transcription) {
+      alert('Please fetch the original transcription first.');
+      return;
+    }
+    try {
+      const response = await fetch('http://localhost:5000/modify', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ transcript: transcription }),
+      });
+    
+      const result = await response.json();
+
+      if (response.ok) {
+        //alert('Modified transcription fetched successfully!');
+        setModifiedTranscription(result.modified_transcript);
+      } else {
+        alert(result.error || 'Failed to fetch modified transcription.');
+      }
+    } catch (error) {
+      console.error('Error fetching modified transcription:', error);
+      alert('An error occurred while fetching the modified transcription.');
+    }
   };
 
   return (
@@ -152,6 +184,14 @@ function App() {
                   </button>
                 </section>
               )}
+              {/* Loading Animation */}
+              {loading && (
+                <div className="loading-spinner">
+                  <CircularProgress size={40} /> {/* Material-UI spinner */}
+                  <p>Fetching transcription...</p>
+                </div>
+              )}
+
               {transcription && (
                 <section
                   className="original-transcription-result"
@@ -164,14 +204,27 @@ function App() {
 
             {/* Right Sub-column: Show Modify */}
             <div className="sub-column">
-              <section className="modified-transcription-section" aria-labelledby="transcription-title">
-                <button
-                  onClick={() => console.log('Modify button clicked')}
-                  aria-label="Show Modify functionality"
+              {audioUrl && (
+                <section 
+                className="modified-transcription-section" 
+                aria-labelledby="transcription-title"
                 >
-                  Modified Transcript
-                </button>
+                <button
+                onClick={fetchModifiedTranscription}  // Change here
+                aria-label="Fetch modified transcription"
+              >
+                Modified Transcript
+              </button>
               </section>
+              )}
+              {modifiedTranscription && (
+              <section
+                className="modified-transcription-result"
+                aria-labelledby="modified-transcription-result-title"
+              >
+                <p aria-live="polite">{modifiedTranscription}</p>
+              </section>
+            )}
             </div>
           </div>
         </div>

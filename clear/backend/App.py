@@ -3,9 +3,15 @@ import os
 from flask_cors import CORS
 from google.cloud import speech
 from pydub import AudioSegment
+from openai import OpenAI  # Import the OpenAI library to access its API.
+import os  # Import the os module to interact with environment variables.
+from dotenv import load_dotenv  # Import load_dotenv to load environment variables from a .env file.
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
+
+load_dotenv()  # Load environment variables from a .env file.
+
 
 UPLOAD_FOLDER = './uploads'
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
@@ -23,10 +29,8 @@ def upload_file():
     file_path = os.path.join(UPLOAD_FOLDER, 'recording.wav')
     audio.save(file_path)
 
-    return jsonify({'message': 'File uploaded successfully'}), 200  # OK
+    return jsonify({'message': 'Audio recorded successfully'}), 200  # OK
 
-from pydub import AudioSegment
-from google.cloud import speech
 
 @app.route('/transcribe', methods=['POST'])
 def transcribe():
@@ -34,7 +38,7 @@ def transcribe():
 
     # Check if the file exists
     if not os.path.exists(file_path):
-        return jsonify({'error': 'Audio file not found'}), 404  # Not Found
+        return jsonify({'error': 'No audio found'}), 404  # Not Found
 
     try:
         # Resample the audio to 16kHz
@@ -74,6 +78,49 @@ def transcribe():
             return jsonify({'error': 'No speech detected'}), 400
     except Exception as e:
         return jsonify({'error': str(e)}), 500  # Internal Server Error
+
+def modify_transcript(original_transcript):
+    api_key = os.getenv("OPEN_AI_KEY")
+    llm = OpenAI(api_key=api_key)
+
+    response = llm.chat.completions.create(
+            model="gpt-3.5-turbo",  # Specify the OpenAI model to use for the response.
+            messages=[  # Define the prompt messages for the API.
+                {
+                    "role": "system", 
+                    "content": "You are a helpful transcription assistant who helps in making transcripts more accessible for people with stuttering issues"
+                                "People who stutter may repeat certain words while speaking. A normal transcription often captures these repetitions multiple times."
+                                "For example, given the transcript 'It is is is Friday,' the corrected version should be 'It is Friday.'"
+                },
+                {
+                    "role": "user",
+                    "content": f"Using this as a reference, remove repetitions from the following transcript: {original_transcript}."
+                                "Please return only the modified transcript without any additional explanation."
+                }
+            ]
+        )
+        
+    modified_transcript = response.choices[0].message.content
+    print(f"Modified Transcript: {modified_transcript}")
+    return modified_transcript
+
+@app.route('/modify', methods=['POST'])
+def modify():
+    try:
+        data = request.json
+        original_transcript = data.get("transcript", "")
+
+        if not original_transcript:
+            return jsonify({'error': 'No transcript provided'}), 400  # Bad Request
+
+        # Call the modify_transcript function
+        modified_transcript = modify_transcript(original_transcript)
+        return jsonify({'modified_transcript': modified_transcript}), 200  # OK
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500  # Internal Server Error
+
+
+
 
 
 if __name__ == '__main__':

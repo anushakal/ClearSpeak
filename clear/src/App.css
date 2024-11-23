@@ -185,13 +185,14 @@
 }
 
 /* Transcription Result Section */
-.original-transcription-result {
+.original-transcription-result, .modified-transcription-result {
   margin-top: 20px;
   text-align: center;
 }
 
-.original-transcription-result p {
+.original-transcription-result p, .modified-transcription-result p {
   font-size: 1.3rem;
+  font-family: Calibri;
   font-display: bold;
   color: #000000;
   white-space: pre-wrap;
@@ -260,3 +261,18 @@
     padding: 8px;
   }
 }
+
+.loading-spinner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+.loading-spinner p {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #666;
+}
+
