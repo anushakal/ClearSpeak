@@ -5,6 +5,7 @@
   flex-direction: column;
   min-height: 100vh;
   background-color: #f7f7f7;
+  padding: 20px;
 }
 
 /* Header Styling */
@@ -15,15 +16,109 @@
   text-align: center;
 }
 
+.main-heading {
+  font-size: 2rem;
+  margin: 0;
+}
+
+.sub-heading {
+  font-size: 1.2rem;
+  margin: 10px 0 0;
+}
+
 /* Main Content Styling */
 .main-content {
   flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   padding: 20px;
 }
 
+/* Voice Recording Section */
+.recording-section {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.recording-section h3 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+/* Mic Icon */
+.recording-section .MuiSvgIcon-root {
+  font-size: 50px;
+  margin-bottom: 10px;
+  transition: color 0.3s;
+}
+
+.recording-section .record-button {
+  font-size: 1.2rem;
+  padding: 10px 20px;
+  background-color: #2a3d66;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.recording-section .record-button:focus {
+  outline: 3px solid #005fcc;
+  outline-offset: 4px;
+  box-shadow: 0 0 5px rgba(0, 95, 204, 0.4);
+}
+
+.recording-section .record-button:hover {
+  background-color: #1f2d47;
+}
+
+/* Transcription Section */
+.transcription-section {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.transcription-section button {
+  font-size: 1.1rem;
+  padding: 10px 20px;
+  background-color: #f39c12;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.transcription-section button:focus {
+  outline: 3px solid #f39c12;
+  outline-offset: 4px;
+  box-shadow: 0 0 5px rgba(243, 156, 18, 0.4);
+}
+
+.transcription-section button:hover {
+  background-color: #e67e22;
+}
+
+/* Transcription Result Section */
+.transcription-result {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.transcription-result h3 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.transcription-result p {
+  font-size: 1.2rem;
+  color: #333;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
 
 /* Footer Styling */
 .footer {
@@ -31,4 +126,43 @@
   color: white;
   padding: 10px;
   text-align: center;
+  margin-top: 20px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .main-content {
+    padding: 10px;
+  }
+
+  .recording-section h3, .transcription-result h3 {
+    font-size: 1.2rem;
+  }
+
+  .record-button, .transcription-section button {
+    font-size: 1rem;
+    padding: 8px 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .header {
+    padding: 15px;
+  }
+
+  .main-heading {
+    font-size: 1.5rem;
+  }
+
+  .sub-heading {
+    font-size: 1rem;
+  }
+
+  .recording-section .MuiSvgIcon-root {
+    font-size: 40px;
+  }
+
+  .footer {
+    padding: 8px;
+  }
 }
