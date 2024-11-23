@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import './App.css';
 import MicIcon from '@mui/icons-material/Mic';
+import { ToggleButton } from '@mui/material';
 
 function App() {
   const [isRecording, setIsRecording] = useState(false);
@@ -87,21 +88,34 @@ function App() {
       </header>
 
       <main className="main-content">
-        {/* Voice Recording Section */}
+        {/* Left Column */}
+        <div className="left-column">
         <section className="recording-section" aria-labelledby="recording-title">
-          <h3 id="recording-title">Voice Recorder</h3>
+          <div class="row heading-row">
+          <h3 id="recording-title">Record your voice note</h3>
+          </div>
+
+          <div class="row icon-row">
           <MicIcon
             aria-hidden="true"
             sx={{ fontSize: 50, color: isRecording ? 'red' : 'black' }}
           />
-          <button
-            className="record-button"
-            onClick={toggleRecording}
+          </div>
+
+          <div className="row button-row">
+          <ToggleButton id="record-button"
+            value="record"
+            selected={isRecording}
+            onChange={toggleRecording}
             aria-pressed={isRecording}
             aria-label={isRecording ? 'Stop recording' : 'Start recording'}
           >
-            {isRecording ? 'Stop Recording' : 'Start Recording'}
-          </button>
+            {isRecording ? 'Stop' : 'Record'}
+          </ToggleButton>
+        </div>
+
+
+          <div class="row recorded-audio-row">
           {audioUrl && (
             <div>
               <audio
@@ -111,9 +125,14 @@ function App() {
               />
             </div>
           )}
+          </div>
         </section>
+        </div>  
 
-        {/* Show Transcription Button */}
+
+         {/* Right Column */}
+        <div className="right-column">
+        <h3 id="recording-title">Your original Transcript</h3>
         {audioUrl && (
           <section className="transcription-section" aria-labelledby="transcription-title">
             <button
@@ -135,6 +154,7 @@ function App() {
             <p aria-live="polite">{transcription}</p>
           </section>
         )}
+      </div>
       </main>
 
       <footer className="footer">

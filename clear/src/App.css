@@ -30,32 +30,65 @@
 .main-content {
   flex: 1;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  padding: 0px;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-direction: row; /* Two-column layout */
+  gap: 20px; /* Spacing between columns */
+  padding: 20px;
 }
+
+/* Left Column Styling */
+.left-column {
+  flex: 1; /* Takes 60% of the container width */
+  width: 30%; /* Explicit fallback width */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: white; /* Optional for better visibility */
+}
+
+/* Right Column Styling */
+.right-column {
+  flex: 3; /* Takes 40% of the container width */
+  width: 70%; /* Explicit fallback width */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: white; /* Optional for better visibility */
+}
+
+
 
 /* Voice Recording Section */
 .recording-section {
+  width: 100%;
   text-align: center;
   margin-bottom: 20px;
 }
 
 .recording-section h3 {
   font-size: 1.5rem;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
+  color: #000000;
 }
 
 /* Mic Icon */
 .recording-section .MuiSvgIcon-root {
-  font-size: 50px;
-  margin-bottom: 10px;
+  font-size: 150px;
+  margin: 20px 0;
   transition: color 0.3s;
 }
 
 /* Recording Button */
-.recording-section .record-button {
+.recording-section #record-button {
   font-size: 1.2rem;
   padding: 10px 20px;
   background-color: #26508f;
@@ -64,15 +97,17 @@
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s, box-shadow 0.3s;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
-.recording-section .record-button:focus {
+.recording-section #record-button:focus {
   outline: 3px solid #113872; /* Light green focus outline */
   outline-offset: 4px;
   box-shadow: 0 0 5px rgba(25, 71, 209, 0.4);
 }
 
-.recording-section .record-button:hover {
+.recording-section #record-button:hover {
   background-color: #113872; /* Darker green for hover */
 }
 
