@@ -65,6 +65,19 @@
   background-color: white; /* Optional for better visibility */
 }
 
+/* Sub-columns inside right column */
+.columns {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.sub-column {
+  width: 48%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
 
 /* Voice Recording Section */
@@ -111,13 +124,19 @@
   background-color: #113872; /* Darker green for hover */
 }
 
+#transcription-title {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  color: #000000;
+}
+
 /* Transcription Section */
-.transcription-section {
+.original-transcription-section, .modified-transcription-section {
   margin-top: 20px;
   text-align: center;
 }
 
-.transcription-section button {
+.original-transcription-section button {
   font-size: 1.1rem;
   padding: 10px 20px;
   background-color: #26508f;
@@ -128,28 +147,33 @@
   transition: background-color 0.3s, box-shadow 0.3s;
 }
 
-.transcription-section button:focus {
+.modified-transcription-section button {
+  font-size: 1.1rem;
+  padding: 10px 20px;
+  background-color: #1b909a;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, box-shadow 0.3s;
+}
+.original-transcription-section button:focus {
   outline: 3px solid #113872;
   outline-offset: 4px;
   box-shadow: 0 0 5px rgba(25, 71, 209, 0.4);
 }
 
-.transcription-section button:hover {
+.original-transcription-section button:hover {
   background-color: #113872;
 }
 
 /* Transcription Result Section */
-.transcription-result {
+.original-transcription-result {
   margin-top: 20px;
   text-align: center;
 }
 
-.transcription-result h3 {
-  font-size: 1.5rem;
-  margin-bottom: 10px;
-}
-
-.transcription-result p {
+.original-transcription-result p {
   font-size: 1.2rem;
   color: #388e3c; /* Dark green text for transcription result */
   white-space: pre-wrap;

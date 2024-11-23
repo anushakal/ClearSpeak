@@ -132,29 +132,43 @@ function App() {
 
          {/* Right Column */}
         <div className="right-column">
-        <h3 id="recording-title">Your original Transcript</h3>
-        {audioUrl && (
-          <section className="transcription-section" aria-labelledby="transcription-title">
-            <button
-              onClick={fetchTranscription}
-              aria-label="Fetch transcription for the recorded audio"
-            >
-              Show Transcription
-            </button>
-          </section>
-        )}
+          <h3 id="transcription-title">Your Transcripts</h3>
+          <div className="columns">
+            {/* Left Sub-column: Show Transcription */}
+            <div className="sub-column">
+              {audioUrl && (
+                <section className="original-transcription-section" aria-labelledby="transcription-title">
+                  <button
+                    onClick={fetchTranscription}
+                    aria-label="Fetch transcription for the recorded audio"
+                  >
+                    Original Transcript
+                  </button>
+                </section>
+              )}
+              {transcription && (
+                <section
+                  className="original-transcription-result"
+                  aria-labelledby="transcription-result-title"
+                >
+                  <p aria-live="polite">{transcription}</p>
+                </section>
+              )}
+            </div>
 
-        {/* Transcription Section */}
-        {transcription && (
-          <section
-            className="transcription-result"
-            aria-labelledby="transcription-result-title"
-          >
-            <h3 id="transcription-result-title">Transcription:</h3>
-            <p aria-live="polite">{transcription}</p>
-          </section>
-        )}
-      </div>
+            {/* Right Sub-column: Show Modify */}
+            <div className="sub-column">
+              <section className="modified-transcription-section" aria-labelledby="transcription-title">
+                <button
+                  onClick={() => console.log('Modify button clicked')}
+                  aria-label="Show Modify functionality"
+                >
+                  Modified Transcript
+                </button>
+              </section>
+            </div>
+          </div>
+        </div>
       </main>
 
       <footer className="footer">
