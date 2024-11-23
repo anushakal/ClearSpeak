@@ -7,13 +7,19 @@
   background-color: #aec1dd;
   padding: 0px;
 }
-
+.high-contrast .app-container {
+  background-color: #2b3b54; /* Darkest shade of blue-gray */
+}
 /* Header Styling */
 .header {
   background-color: #4d85d8;
   color: white;
   padding: 20px;
   text-align: center;
+}
+
+.high-contrast .header {
+  background-color: #003366; /* Darkest shade of blue */
 }
 
 .main-heading {
@@ -147,6 +153,13 @@
   transition: background-color 0.3s, box-shadow 0.3s;
 }
 
+
+.high-contrast .recording-section #record-button,
+.high-contrast .original-transcription-section button,
+.high-contrast .footer button {
+  background-color: #001f3f; /* Dark navy */
+}
+
 .modified-transcription-section button {
   font-size: 1.1rem;
   padding: 10px 20px;
@@ -156,6 +169,10 @@
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.high-contrast .modified-transcription-section button{
+  background-color: #0c4a4f;
 }
 .original-transcription-section button:focus {
   outline: 3px solid #113872;
@@ -174,8 +191,9 @@
 }
 
 .original-transcription-result p {
-  font-size: 1.2rem;
-  color: #388e3c; /* Dark green text for transcription result */
+  font-size: 1.3rem;
+  font-display: bold;
+  color: #000000;
   white-space: pre-wrap;
   word-wrap: break-word;
 }
@@ -188,6 +206,21 @@
   padding: 10px;
   text-align: center;
   margin-top: 20px;
+}
+
+.footer button{
+  font-size: 1.1rem;
+  padding: 10px 20px;
+  background-color: #26508f;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.high-contrast .footer {
+  background-color: #003366; /* Darkest shade of blue */
 }
 
 /* Responsive Design */

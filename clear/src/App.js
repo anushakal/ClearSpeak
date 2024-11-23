@@ -9,6 +9,7 @@ function App() {
   const mediaRecorderRef = useRef(null);
   const audioChunksRef = useRef([]);
   const [transcription, setTranscription] = useState('');
+  const [isHighContrast, setIsHighContrast] = useState(false);
 
   const saveRecording = async (audioBlob) => {
     const formData = new FormData();
@@ -76,6 +77,11 @@ function App() {
       console.error('Error fetching transcription:', error);
       alert('An error occurred while fetching the transcription.');
     }
+  };
+
+  const toggleContrast = () => {
+    setIsHighContrast(!isHighContrast);
+    document.body.classList.toggle('high-contrast');
   };
 
   return (
@@ -171,9 +177,14 @@ function App() {
         </div>
       </main>
 
+      <div className={isHighContrast ? 'high-contrast-mode' : ''}>
       <footer className="footer">
-        <p>&copy; 2024 ClearSpeak | All Rights Reserved</p>
+        <button onClick={toggleContrast}>
+          {isHighContrast ? 'Normal Contrast' : 'Change Contrast'}
+        </button>
       </footer>
+    </div>
+
     </div>
   );
 }
