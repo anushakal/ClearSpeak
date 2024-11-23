@@ -1,28 +1,28 @@
 /* General App container */
 .app-container {
-  font-family: Arial, sans-serif;
+  font-family: Garamond, serif;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background-color: #f7f7f7;
-  padding: 20px;
+  background-color: #aec1dd;
+  padding: 0px;
 }
 
 /* Header Styling */
 .header {
-  background-color: #2a3d66;
+  background-color: #4d85d8;
   color: white;
   padding: 20px;
   text-align: center;
 }
 
 .main-heading {
-  font-size: 2rem;
+  font-size: 2.2rem;
   margin: 0;
 }
 
 .sub-heading {
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   margin: 10px 0 0;
 }
 
@@ -33,7 +33,7 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  padding: 20px;
+  padding: 0px;
 }
 
 /* Voice Recording Section */
@@ -54,10 +54,11 @@
   transition: color 0.3s;
 }
 
+/* Recording Button */
 .recording-section .record-button {
   font-size: 1.2rem;
   padding: 10px 20px;
-  background-color: #2a3d66;
+  background-color: #26508f;
   color: white;
   border: none;
   border-radius: 5px;
@@ -66,13 +67,13 @@
 }
 
 .recording-section .record-button:focus {
-  outline: 3px solid #005fcc;
+  outline: 3px solid #113872; /* Light green focus outline */
   outline-offset: 4px;
-  box-shadow: 0 0 5px rgba(0, 95, 204, 0.4);
+  box-shadow: 0 0 5px rgba(25, 71, 209, 0.4);
 }
 
 .recording-section .record-button:hover {
-  background-color: #1f2d47;
+  background-color: #113872; /* Darker green for hover */
 }
 
 /* Transcription Section */
@@ -84,7 +85,7 @@
 .transcription-section button {
   font-size: 1.1rem;
   padding: 10px 20px;
-  background-color: #f39c12;
+  background-color: #26508f;
   color: white;
   border: none;
   border-radius: 5px;
@@ -93,13 +94,13 @@
 }
 
 .transcription-section button:focus {
-  outline: 3px solid #f39c12;
+  outline: 3px solid #113872;
   outline-offset: 4px;
-  box-shadow: 0 0 5px rgba(243, 156, 18, 0.4);
+  box-shadow: 0 0 5px rgba(25, 71, 209, 0.4);
 }
 
 .transcription-section button:hover {
-  background-color: #e67e22;
+  background-color: #113872;
 }
 
 /* Transcription Result Section */
@@ -115,14 +116,15 @@
 
 .transcription-result p {
   font-size: 1.2rem;
-  color: #333;
+  color: #388e3c; /* Dark green text for transcription result */
   white-space: pre-wrap;
   word-wrap: break-word;
 }
 
 /* Footer Styling */
 .footer {
-  background-color: #2a3d66;
+  background-color: #4d85d8;
+  font-size: 25px;
   color: white;
   padding: 10px;
   text-align: center;
