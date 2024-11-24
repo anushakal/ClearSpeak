@@ -1,70 +1,92 @@
-# Getting Started with Create React App
+# ClearSpeak - Making transcriptions accessible for people with stuttering problems.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Key Features:
 
-## Available Scripts
+- **Audio Record:** Users can record audio files via the record button where they are stored for further processing.
 
-In the project directory, you can run:
+- **Speech-to-Text Transcription:** The app converts speech in audio files into text using Google Cloud's Speech-to-Text API. This is the original transcript shown by the app.
+  
+- **Repetition Removal:** The app further uses OpenAI's GPT-3.5 API to process the transcript and remove repeated words, enhancing the accessibility of the output to output the modified transcript.
 
-### `npm start`
+## Project Files:
+project-root/
+├── backend/
+│   ├── app.py                # Main Flask application with endpoints
+│   ├── google-account.json   # Service account key for Google Cloud Speech API
+│   ├── .env                  # Environment variables (e.g., OpenAI API Key)
+│   ├── uploads/              # Temporary storage for uploaded audio files
+├── public/
+│   ├── assets/               # Images and static files
+│   └── index.html            # Entry point for frontend (if applicable)
+├── src/
+│   ├── components/           # React components (if frontend integration is added)
+│   ├── services/             # Frontend API services
+│   └── App.js                # React app entry point
+├── .gitignore                # Specifies files/folders to ignore in version control
+├── README.md                 # Documentation for the project
+├── package-lock.json         # Auto-generated file for dependency tree
+├── package.json              # Project metadata and dependencies for Node.js
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Dependencies
+**Backend:**
 
-### `npm test`
+Flask: Web framework for API creation.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Flask-CORS: Enable Cross-Origin Resource Sharing.
 
-### `npm run build`
+google-cloud-speech: Google's Speech-to-Text API integration.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+pydub: Audio file processing and resampling.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+openai: API client for OpenAI's GPT models.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+python-dotenv: Load environment variables from a .env file.
 
-### `npm run eject`
+**Frontend**
+React: For building user interfaces
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Installing dependencies 
+- Install Node.js and npm (based on your OS)
+  
+- OPEN AI API KEY - Register for a key at: https://openai.com/
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- GOOGLE API key for Speech to text API:
+     - Enroll for a free API key at: https://cloud.google.com/speech-to-text/?hl=en#how-it-works  
+ 
+## Setup Instructions
+To get started with the project, follow these steps:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+**1. Clone the Repository**
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+  git clone https://github.com/anushakal/ClearSpeak.git
 
-## Learn More
+**2. Navigate to medq folder (Make sure you are in the folder ClearSpeak/clear)** 
+  
+  cd ClearSpeak
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+  cd clear
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+ **3. Install the frontend dependencies**
+      Open a new terminal at ClearSpeak/clear - npm install
 
-### Code Splitting
+  **4. Backend Dependencies**
+      - Navigate to backend folder - cd backend
+      
+      - Place your Google API json file in the backend folder - google-account.json
+      
+      - Create a .env file and paste your OPENAI API Key as:
+        
+        OPEN_AI_KEY="your api key"
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+      - Installing python dependencies - pip install -r requirements.txt
 
-### Analyzing the Bundle Size
+  **4. Start the app**
+   
+      - Start the backend server  - python app.py
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+      - Start the frontend app -  npm start 
+ 
+   
+## Notes:
+Ensure that the OpenAI API key and the Google API key are securely configured.
