@@ -1,7 +1,5 @@
 # ClearSpeak - Making transcriptions easy for people with stuttering problems
 
-![Image](./assets/overview.png)
-
 ## **What is this project about?**
 This project provides a robust system for uploading audio files, transcribing speech to text, and enhancing the transcription by removing repetitive stuttering patterns. It aims to make speech transcription more accessible and user-friendly for individuals with speech disfluencies, ensuring a clean, natural representation of their speech.
 
