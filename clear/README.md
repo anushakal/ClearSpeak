@@ -10,21 +10,37 @@
 
 ## Project Files:
 project-root/
+
 ├── backend/
+
 │   ├── app.py                # Main Flask application with endpoints
+
 │   ├── google-account.json   # Service account key for Google Cloud Speech API
+
 │   ├── .env                  # Environment variables (e.g., OpenAI API Key)
+
 │   ├── uploads/              # Temporary storage for uploaded audio files
+
 ├── public/
+
 │   ├── assets/               # Images and static files
+
 │   └── index.html            # Entry point for frontend (if applicable)
+
 ├── src/
+
 │   ├── components/           # React components (if frontend integration is added)
+
 │   ├── services/             # Frontend API services
+
 │   └── App.js                # React app entry point
+
 ├── .gitignore                # Specifies files/folders to ignore in version control
-├── README.md                 # Documentation for the project
+
+├── README.md                 # project installation instructions
+
 ├── package-lock.json         # Auto-generated file for dependency tree
+
 ├── package.json              # Project metadata and dependencies for Node.js
 
 
