@@ -1,3 +1,4 @@
+//Importing all the necessary libraries
 import React, { useState, useRef } from 'react';
 import './App.css';
 import MicIcon from '@mui/icons-material/Mic';
@@ -5,15 +6,17 @@ import { ToggleButton } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
 
 function App() {
-  const [isRecording, setIsRecording] = useState(false);
-  const [audioUrl, setAudioUrl] = useState('');
+  //state variables 
+  const [isRecording, setIsRecording] = useState(false); //to track recording status
+  const [audioUrl, setAudioUrl] = useState(''); //to store the url of the recorded audio
   const mediaRecorderRef = useRef(null);
   const audioChunksRef = useRef([]);
-  const [transcription, setTranscription] = useState('');
-  const [isHighContrast, setIsHighContrast] = useState(false);
+  const [transcription, setTranscription] = useState(''); // For the original transcription
+  const [isHighContrast, setIsHighContrast] = useState(false); // For contrast monitoring
   const [loading, setLoading] = useState(false);
-  const [modifiedTranscription, setModifiedTranscription] = useState('');
+  const [modifiedTranscription, setModifiedTranscription] = useState(''); // For the modified transcript
 
+  //Function to save the audio recording
   const saveRecording = async (audioBlob) => {
     const formData = new FormData();
     formData.append('audio', audioBlob, 'recording.wav');
@@ -37,6 +40,7 @@ function App() {
     }
   };
 
+  // Function to toggle the recording button
   const toggleRecording = async () => {
     if (isRecording) {
       mediaRecorderRef.current.stop();
@@ -62,6 +66,7 @@ function App() {
     }
   };
 
+  // Function to fetch the transcription from Google Speech-to-text API
   const fetchTranscription = async () => {
     setLoading(true); // Show loading animation
     try {
@@ -85,11 +90,13 @@ function App() {
     }
   };
 
+  // Function to toggle high contrast mode
   const toggleContrast = () => {
     setIsHighContrast(!isHighContrast);
     document.body.classList.toggle('high-contrast');
   };
 
+  // Function to fetch the modified transcript
   const fetchModifiedTranscription = async () => {
     if (!transcription) {
       alert('Please fetch the original transcription first.');
@@ -116,6 +123,7 @@ function App() {
     }
   };
 
+  // Display of the componenets on the web-app
   return (
     <div className="app-container" aria-labelledby="app-title" aria-describedby="app-description">
       <header className="header">
@@ -202,7 +210,7 @@ function App() {
               )}
             </div>
 
-            {/* Right Sub-column: Show Modify */}
+            {/* Right Sub-column*/}
             <div className="sub-column">
               {audioUrl && (
                 <section 
@@ -210,7 +218,7 @@ function App() {
                 aria-labelledby="transcription-title"
                 >
                 <button
-                onClick={fetchModifiedTranscription}  // Change here
+                onClick={fetchModifiedTranscription}
                 aria-label="Fetch modified transcription"
               >
                 Modified Transcript
